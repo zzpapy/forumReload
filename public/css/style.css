@@ -23,6 +23,16 @@ table{
 img{
     width: 100%;
 }
+.message{
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #9af6d1;
+    padding: 1em;
+    display: none;
+}
 #wrapper{
     min-height: 100vh;
     padding: 2em;

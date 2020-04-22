@@ -71,7 +71,30 @@ foreach ($result["data"]["posts"] as  $post) {
                     <?= $post->getCreationdate() ?>
                 </div>
             </td>
-        <td class="text_comment" colspan="2"><?= $post->getContent() ?></td>
+        <td class="text_comment" colspan="2">
+            <?php  
+            // var_dump(App\Session::getAuthor() == $post->getId());die; 
+                if(isset($_GET["idPost"]) && $_GET["idPost"] == $post->getId()){
+            ?>
+            <form action="index.php?ctrl=forum&action=viewTopic&id=<?php echo $result['data']['modifPost']->getTopic()->getId() ?>&idPost=<?php echo $result['data']['modifPost']->getId() ?>" method="post">
+                    <textarea name="content" id="" cols="30" rows="10" name ="content">
+                    <?php  
+                    // var_dump($result['data']['modifPost']->getContent());die;
+                    echo $result['data']['modifPost']->getContent() ?>
+                    </textarea>
+                    <input type="hidden" name="topic_id" value="<?php echo $result['data']['modifPost']->getTopic()->getId() ?>">
+                    <input type="submit">
+                </form>
+                <?php
+            }
+            else{
+                echo $post->getContent();
+            }
+            if(App\Session::getAuthor() == $post->getUser()->getId()){
+            ?>
+            <a href="index.php?ctrl=forum&action=viewTopic&id=<?= $id_topic ?>&idPost=<?= $post->getId() ?>">modifier</a>
+            <?php } ?>
+        </td>
     </tr>
 </table>
 </article>

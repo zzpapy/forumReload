@@ -14,7 +14,7 @@
             if(Session::authenticationRequired()){
                 $topicManager = new TopicManager();
                 $topics = $topicManager->findAll(["creationdate","DESC"]);
-                
+
                 return [
                     "view" => VIEW_DIR."topics.php",
                     "data" => ["topics" => $topics]
@@ -34,13 +34,42 @@
            
             
         }
-        public function viewTopic(){
+        public function modifMess(){
+            $postManager = new PostManager();
+            $post = $postManager->findOneById($_POST["id_post"]);
+            return [
+                "view" => VIEW_DIR."modifPost.php",
+                "data" =>  $post
+            ];
+            var_dump($_POST);die;
+
+        }
+        public function modif(){
+            // var_dump($_POST);die;
+            $postManager = new PostManager();
+            $post = $postManager->modif($_GET["id"]);
+            $this->redirectTo("forum", "viewTopic",$_POST["topic_id"]);
+        }
+        public function viewTopic($id,$idPost = null){
             $topicManager = new TopicManager();
-            $topic = $topicManager->findOneById($_GET["id"],["creationdate","ASC"]);
-            // var_dump($topic);die;
+            $topic = $topicManager->findOneById($id,["creationdate","ASC"]);
+            if(isset($_GET["idPost"])){
+                $idPost = $_GET["idPost"];
+                $postManager = new PostManager();
+                $post = $postManager->findOneById($idPost);
+                if(!empty($_POST)){
+                    
+                    $post = $postManager->modif($idPost);
+                    // var_dump($post);die;
+                    $this->redirectTo("forum", "viewTopic",$id);
+                }
+                // $postManager = new PostManager();
+                // $post = $postManager->modif($_GET["idPost"]);
+            }
             if($topic){
                 $postManager = new PostManager();
-                $posts = $postManager->findBytopic($_GET["id"]);
+                $posts = $postManager->findBytopic($id);
+                // var_dump($posts);die;
                 $commentManager = new CommentManager();
                 $tabComment = [];
                 if($posts){
@@ -53,8 +82,9 @@
                     "data" => [
                         "topics" => $topic,
                         "posts" => $posts,
-                        "comments" => $tabComment
-                        ]
+                        "comments" => $tabComment,
+                        "modifPost" => $post
+                         ]
                 ];
             }
             else{
@@ -238,22 +268,8 @@
             $postSignal = $postManager->delete($_POST["id_post"]);
             $this->redirectTo("forum", "viewTopic",$_POST["topic_id"]);
         }
-        public function modifMess(){
-            $postManager = new PostManager();
-            $post = $postManager->findOneById($_POST["id_post"]);
-            return [
-                "view" => VIEW_DIR."modifPost.php",
-                "data" =>  $post
-            ];
-            var_dump($_POST);die;
-
-        }
-        public function modif(){
-            // var_dump($_POST);die;
-            $postManager = new PostManager();
-            $post = $postManager->modif($_GET["id"]);
-            $this->redirectTo("forum", "viewTopic",$_POST["topic_id"]);
-        }
+       
+       
 
         /*public function ajax(){
             $nb = $_GET['nb'];

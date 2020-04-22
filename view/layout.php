@@ -41,10 +41,10 @@
         // var_dump(App\Session::isAdmin());die; ?>
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
-            <h3 id="message" style="color: red">
+            <h3 class="message" style="color: red">
                 <?= App\Session::getFlash("error") ?>
             </h3>
-            <h3 id="message" style="color: green">
+            <h3 class="message" style="color: green">
                 <?= App\Session::getFlash("success") ?>
             </h3>
             <header>
@@ -102,6 +102,7 @@
     <script src="public/js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script>
+     
         $("#ajaxbtn").on("click", function(){
             $.get(
                 "index.php?action=ajax",
