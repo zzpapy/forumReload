@@ -70,9 +70,9 @@
          */ 
         public function getCreationdate()
         {
-                $date = new \DateTime($this->creationdate);
-                $date = date_format($date,'d-m-Y H:i:s');
-                return $date;
+                $creationdate = new \DateTime($this->creationdate);
+                $creationdate = date_format($creationdate,'d-m-Y H:i:s');
+                return $creationdate;
         }
 
         /**
@@ -80,9 +80,9 @@
          *
          * @return  self
          */ 
-        public function setCreationdate($date)
+        public function setCreationdate($creationdate)
         {
-                $this->date = $date;
+                $this->creationdate = $creationdate;
 
                 return $this;
         }

@@ -18,20 +18,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./public/css/style.css">
     <title>FORUM</title>
-    <script src="https://cdn.tiny.cloud/1/3gr70hsm3dpwzqfab3aenwtc39yehpw0o2s2zqg2l2oqim1t/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/3gr70hsm3dpwzqfab3aenwtc39yehpw0o2s2zqg2l2oqim1t/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 </head>
 <body>
  
   <script>
-    tinymce.init({
-      selector: 'textarea',
-      plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-      toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
-      toolbar_mode: 'floating',
-      tinycomments_mode: 'embedded',
-      tinycomments_author: 'Author name',
-      content_css: '//localohost/public/css/style.css',
-    });
+   tinymce.init({
+                selector: 'textarea',
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+                content_css: '//www.tiny.cloud/css/codepen.min.css'
+            });
   </script>
 </head>
 <body>
@@ -41,12 +46,16 @@
         // var_dump(App\Session::isAdmin());die; ?>
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
+            <?php
+            if(isset($_SESSION["error"]) && $_SESSION["error"] != "" || isset($_SESSION["success"]) && $_SESSION["success"] != ""){
+                ?>
             <h3 class="message" style="color: red">
                 <?= App\Session::getFlash("error") ?>
             </h3>
             <h3 class="message" style="color: green">
                 <?= App\Session::getFlash("success") ?>
             </h3>
+            <?php } ?>
             <header>
                 <div class="head">
             <?php if(App\Session::getUser()){
@@ -82,12 +91,18 @@
                         }                   
                     ?>                   
                 </nav>
-            </header>
-            </div>
-            
+                <i class="picker fas fa-tint"></i>
+            </header>            
             <main id="forum">
                 <?= $page ?>
             </main>
+        </div>
+        <div class="css hide">
+            <div id="color" class="red"></div>
+            <div id="color" class="green"></div>
+            <div id="color" class="black"></div>
+            <div id="color" class="yellow"></div>
+            <div id="color" class="rgb(116,183,26);"></div>
         </div>
         <footer>
             <p>&copy; 2020 - Forum CDA</p>

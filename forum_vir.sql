@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : Dim 19 avr. 2020 à 16:26
+-- Généré le : mer. 22 avr. 2020 à 14:08
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.2.19
 
@@ -41,9 +41,12 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id_comment`, `content`, `user_id`, `post_id`, `creationdate`) VALUES
-(13, 'coucou', 1, 20, '2020-04-19 15:10:08'),
-(14, 'ccccc', 1, 19, '2020-04-19 15:13:48'),
-(15, 'bimm !!!!&#13;&#10;', 1, 18, '2020-04-19 15:41:08');
+(1, '<p>test</p>\r\n<p>&nbsp;</p>', 1, 35, '2020-04-22 11:16:00'),
+(2, '<p>re</p>', 1, 35, '2020-04-22 11:16:37'),
+(3, 'n nj j j j', 1, 39, '2020-04-22 13:51:00'),
+(4, 'kjhjhk jhbhkb k', 1, 39, '2020-04-22 13:59:43'),
+(5, 'comment\r\n', 4, 41, '2020-04-22 16:00:33'),
+(6, 'jnjnjn\r\n', 4, 39, '2020-04-22 16:06:47');
 
 -- --------------------------------------------------------
 
@@ -67,11 +70,17 @@ INSERT INTO `post` (`id_post`, `content`, `user_id`, `topic_id`, `creationdate`)
 (3, 'test', 1, 9, '2020-04-17 14:02:18'),
 (8, 'essai message supp', 4, 9, '2020-04-18 12:04:16'),
 (9, 'un autre', 4, 9, '2020-04-18 12:04:26'),
-(18, 'test&#13;&#10;', 1, 10, '2020-04-19 14:36:14'),
-(19, 'a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;a&#13;&#10;aa', 1, 10, '2020-04-19 14:56:38'),
-(20, 'je&#13;&#10;suis assez &#13;&#10;toubmlé', 1, 10, '2020-04-19 14:57:06'),
-(22, 'brrrrrr\r\n           ', 1, 11, '2020-04-19 17:19:52'),
-(23, '        et bimla modif\r\n                         ', 4, 12, '2020-04-19 17:45:48');
+(30, 'hvhvvhvh', 4, 10, '2020-04-20 14:03:49'),
+(33, 'message pour &nbsp;', 1, 13, '2020-04-22 08:55:27'),
+(34, '<p>test</p>', 1, 14, '2020-04-22 11:11:39'),
+(35, '<p>re</p>', 1, 15, '2020-04-22 11:12:00'),
+(36, '<p>test</p>', 1, 15, '2020-04-22 11:14:17'),
+(37, '<p>jhbjhbjhbjbb</p>', 1, 10, '2020-04-22 11:28:14'),
+(38, '<p>bim</p>', 1, 16, '2020-04-22 11:43:56'),
+(39, 'tutututut', 1, 17, '2020-04-22 11:44:10'),
+(40, 'test', 1, 17, '2020-04-22 13:45:04'),
+(41, 'kjknbibibibi', 1, 17, '2020-04-22 14:03:22'),
+(42, 'essai message\r\n', 4, 17, '2020-04-22 16:00:17');
 
 -- --------------------------------------------------------
 
@@ -84,14 +93,6 @@ CREATE TABLE `signalement` (
   `post_id` int(11) NOT NULL,
   `creationdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Déchargement des données de la table `signalement`
---
-
-INSERT INTO `signalement` (`user_id`, `post_id`, `creationdate`) VALUES
-(1, 23, '2020-04-19 18:12:15'),
-(1, 23, '2020-04-19 18:22:01');
 
 -- --------------------------------------------------------
 
@@ -114,11 +115,11 @@ CREATE TABLE `topic` (
 INSERT INTO `topic` (`id_topic`, `title`, `creationdate`, `user_id`, `closed`) VALUES
 (9, 'test', '2020-04-17 14:02:18', 1, 0),
 (10, 'sujet 2', '2020-04-17 14:06:03', 1, 0),
-(11, '3', '2020-04-17 14:09:49', 1, 0),
-(12, '1', '2020-04-17 14:22:05', 1, 0),
 (13, 'Sujet après affich topic', '2020-04-17 17:29:17', 1, 0),
-(14, 'essai avatar', '2020-04-18 19:03:30', 4, 0),
-(15, 'nojveau sujet à 20h07', '2020-04-18 20:08:27', 4, 0);
+(14, 'test js', '2020-04-22 11:11:39', 1, 0),
+(15, 're', '2020-04-22 11:12:00', 1, 0),
+(16, 'bim', '2020-04-22 11:43:56', 1, 0),
+(17, 'bim', '2020-04-22 11:44:10', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -133,17 +134,18 @@ CREATE TABLE `user` (
   `password` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `registerdate` datetime DEFAULT CURRENT_TIMESTAMP,
   `roles` json DEFAULT NULL,
-  `avatar` varchar(256) COLLATE utf8_bin DEFAULT NULL
+  `avatar` varchar(256) COLLATE utf8_bin DEFAULT NULL,
+  `connected` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `registerdate`, `roles`, `avatar`) VALUES
-(1, 'admin', 'gregory.pace@hotmail.fr', '$argon2i$v=19$m=1024,t=2,p=2$MU8vbEtqek1oWUR6OGwyZw$nCWN7R8B2/8YVwMrqQ6X97qrCAntQHtP6+tCl2ruFNc', '2020-04-15 13:40:25', '[\"ROLE_USER\", \"ROLE_ADMIN\"]', 'public/img/acheter-un-chat (1).jpg'),
-(2, 'test', 'toto@hotmail.fr', '$argon2i$v=19$m=1024,t=2,p=2$a1pkZE1GT0pWaVhJS1NFOQ$ySTQ6oWB4WCFa2QT64BBlwjIOF+ELzjLAVjFcQqPrX0', '2020-04-17 10:47:38', '[\"ROLE_USER\"]', NULL),
-(4, 'toto', 'toto@toto.com', '$argon2i$v=19$m=1024,t=2,p=2$eVJGemw3QndoWkxFejIxNw$6GEfhWyYnqOlTSFqcMC5vzxJJtTvEpeuVBhYDuyil5E', '2020-04-18 11:17:19', '[\"ROLE_USER\"]', 'public/img/acheter-un-chat (1).jpg');
+INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `registerdate`, `roles`, `avatar`, `connected`) VALUES
+(1, 'zzpapy', 'gregory.pace@hotmail.fr', '$argon2i$v=19$m=1024,t=2,p=2$MU8vbEtqek1oWUR6OGwyZw$nCWN7R8B2/8YVwMrqQ6X97qrCAntQHtP6+tCl2ruFNc', '2020-04-15 13:40:25', '[\"ROLE_USER\", \"ROLE_ADMIN\"]', 'public/img/acheter-un-chat (1).jpg', 1),
+(2, 'test', 'toto@hotmail.fr', '$argon2i$v=19$m=1024,t=2,p=2$a1pkZE1GT0pWaVhJS1NFOQ$ySTQ6oWB4WCFa2QT64BBlwjIOF+ELzjLAVjFcQqPrX0', '2020-04-17 10:47:38', '[\"ROLE_USER\"]', 'public/img/mau_egyptien_med-_res-___basic.png', 1),
+(4, 'hjbhubjb', 'toto@toto.com', '$argon2i$v=19$m=1024,t=2,p=2$eVJGemw3QndoWkxFejIxNw$6GEfhWyYnqOlTSFqcMC5vzxJJtTvEpeuVBhYDuyil5E', '2020-04-18 11:17:19', '[\"ROLE_USER\"]', 'public/img/acheter-un-chat (1).jpg', 1);
 
 --
 -- Index pour les tables déchargées
@@ -162,8 +164,8 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id_post`),
-  ADD KEY `topic_ibfk_2` (`topic_id`),
-  ADD KEY `usert_ibfk_1` (`user_id`);
+  ADD KEY `usert_ibfk_1` (`user_id`),
+  ADD KEY `topic_ibfk_2` (`topic_id`);
 
 --
 -- Index pour la table `signalement`
@@ -194,19 +196,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT pour la table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id_topic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_topic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `user`
@@ -229,7 +231,7 @@ ALTER TABLE `comment`
 -- Contraintes pour la table `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`),
+  ADD CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `usert_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`);
 
 --

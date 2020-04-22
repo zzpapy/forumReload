@@ -1,3 +1,6 @@
+:root{
+    --color: #aaa;
+  }
 *{
     box-sizing: border-box;
 }
@@ -11,6 +14,11 @@ body{
 }
 .hide{
     display: none;
+}
+header{
+    position: sticky;
+    top: 0;
+    background: white;
 }
 a{
     text-decoration: none;
@@ -31,6 +39,7 @@ img{
     width: 100%;
     background-color: #9af6d1;
     padding: 1em;
+    /* line-height: 3em; */
     display: none;
 }
 #wrapper{
@@ -60,7 +69,7 @@ img{
     border-radius:50%;
 }
 .username span{
-    border: 1px solid #aaa;
+    border: 1px solid var(--color);
     padding: 0 1em;
 }
 .tox{
@@ -73,7 +82,7 @@ nav{
 }
 
 form{
-    max-width: 600px;
+    width: 600px;
     margin: auto;
 }
 
@@ -107,14 +116,14 @@ footer{
     width: 15%;
     padding:0.5em 1em;
     display: inline-block;
-    border: 1px solid #aaa;
+    border: 1px solid var(--color);
     text-shadow: 1px 1px black;
 }
 .title{
     justify-content: space-between;
     align-items: center;
     padding:0.5em 0.5em;
-    border: 1px solid #aaa;
+    border: 1px solid var(--color);
     margin: 1em 0;
 }
 .flex_a{
@@ -147,7 +156,7 @@ footer{
 }
 .posts{
     width: 100%;
-    border:1px solid #aaa;
+    border:1px solid var(--color);
     margin-top:1em;
 }
 .content{
@@ -162,28 +171,67 @@ footer{
     /* padding: 0 6em; */
 }
 .marge{
-    background: #aaa;
+    background: var(--color);
+}
+.tiny{
+
+    margin-right: 0 !important;
+}
+.newPostButton,.newCommentButton{
+    padding:0em 0.5em;
+    text-align: center;
+    border: 1px solid var(--color);
+    background: white;
+    box-shadow:  2px 2px 2px;
+    cursor: pointer;
+    margin:0.5em;
+    width: 45%;
+}
+.newPost{
+    width: 100% !important;
+    
+}
+.newCommentButton{
+    margin: auto;
+    float: right;
+}
+.newPostButton{
+    margin: auto;
+    float: left;
 }
 .author_comment{
     text-align: right;
     padding:0 0.5em;
-    border-right: 1px solid #aaa;
-    border-bottom: 2px solid #aaa;
+    border-right: 1px solid var(--color);
+    border-bottom: 2px solid var(--color);
+}
+.user_comment{
+    text-align: right;
+    padding:0 0.5em;
+    border-right: 1px solid var(--color);
 }
 .text_comment{
-    border-left: 1px solid #aaa;
+    border-left: 1px solid var(--color);
+    border-bottom: 1px solid var(--color);
     padding:0 0.5em;
 }
 .comment{
-    border:1px solid #aaa;
+    border:1px solid var(--color);
     border-top:none;
+    width: 75%;
+    float: right;
 }
 .comment tbody tr:first-child{
-    border-right:1px solid #aaa;
+    border-right:1px solid var(--color);
+}
+input.outils{
+    padding:0.2em 0.2em;
 }
 .outils{
+    padding:0em 0.2em;
     text-align: center;
-    border: 1px solid #aaa;
+    border: 1px solid var(--color);
+    background: white;
     box-shadow:  2px 2px 2px;
     cursor: pointer;
     margin:0.5em;
@@ -197,4 +245,34 @@ footer{
     align-items: center;
   
 }
-
+.css{
+    position: fixed;
+    /* display: flex; */
+    justify-content: space-around;
+    flex-wrap: wrap;
+    left: 10em;
+    top: 10em;
+    width:12em;
+    /* height: 15em; */
+}
+.css div{
+    width:1em;
+    height:1em;
+    /* margin: 0.5em; */
+    cursor: pointer;
+}
+.css div:nth-child(1){
+    background-color: red;
+}
+.css div:nth-child(2){
+    background-color: green;
+}
+.css div:nth-child(3){
+    background-color: black;
+}
+.css div:nth-child(4){
+    background-color: yellow;
+}
+.css div:nth-child(5){
+    background-color: rgb(116, 183, 26);
+}

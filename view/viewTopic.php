@@ -83,34 +83,36 @@ foreach ($result["data"]["posts"] as  $post) {
                     echo $result['data']['modifPost']->getContent() ?>
                     </textarea>
                     <input type="hidden" name="topic_id" value="<?php echo $result['data']['modifPost']->getTopic()->getId() ?>">
-                    <input type="submit">
+                    <a class="outils" href="index.php?ctrl=forum&action=viewTopic&id=<?= $id_topic ?>">annuler</a>
+                    <input class="outils" type="submit">
                 </form>
                 <?php
             }
             else{
                 echo $post->getContent();
+                echo '<p><a class="outils" href="index.php?ctrl=forum&action=viewTopic&id='.$id_topic.'&idPost='.$post->getId().'">modifier</a></p>';
             }
             if(App\Session::getAuthor() == $post->getUser()->getId()){
             ?>
-            <a href="index.php?ctrl=forum&action=viewTopic&id=<?= $id_topic ?>&idPost=<?= $post->getId() ?>">modifier</a>
             <?php } ?>
         </td>
     </tr>
-</table>
-</article>
-<article>
-<table>
-    <?php if($closed == 0){ ?>
     <tr>
-        <td ></td>
+        <td></td>
         <td colspan="2">
-            <form action="index.php?ctrl=forum&action=creaComment&id=<?= $post->getId() ?>" method="POST">
+        <strong name="<?= $post->getId() ?>" class="newCommentButton">Commenter le message de  <?= $post->getUser()->getUsername() ?> </strong>
+            <form id="<?= $post->getId() ?>" class="tiny <?= $post->getId() ?> hide" action="index.php?ctrl=forum&action=creaComment&id=<?= $post->getId() ?>" method="POST">
             <input type="hidden" name="topic_id" value="<?= $result["data"]["topics"]->getId() ?>">
                 <p><textarea name="content" id="" cols="20" rows="4" placeholder="commenter le meassage de <?= $post->getUser()->getUsername() ?> ..."></textarea></p>
                 <p><input type="submit" value="créer"></p>
             </form>
         </td>
     </tr>
+</table>
+</article>
+
+<table>
+    <?php if($closed == 0){ ?>
     <?php } ?>
     <tr>
      <?php 
@@ -127,7 +129,7 @@ foreach ($result["data"]["posts"] as  $post) {
         if(!empty($result["data"]["comments"][$post->getId()])){
             foreach ($result["data"]["comments"][$post->getId()] as  $comment) { ?>
                     <td  class="marge"width="5%"></td>
-                <td class="author_comment" width="15%">
+                <td class="user_comment" width="15%">
                 <?= $comment->getUser()->getUsername() ?>
                 </td>
                 </tr>
@@ -148,10 +150,18 @@ foreach ($result["data"]["posts"] as  $post) {
     <?php }
 ?>
 </table>
-</article>
 <?php if($closed == 0){ ?>
-<form action="index.php?ctrl=forum&action=creaPost&id=<?= $result["data"]["topics"]->getId() ?>" method="POST">
-    <p><textarea name="content" id="" cols="90" rows="10" placeholder="Nouveau message du sujet..."></textarea></p>
-    <p><input type="submit" value="créer"></p>
-</form>
+    <article>
+        <table>
+            <tr>
+                <td>
+                    <strong class="newPostButton">nouveau message</strong>
+                </td>
+            </tr>
+        </table>
+    <form class="newPost hide" action="index.php?ctrl=forum&action=creaPost&id=<?= $result["data"]["topics"]->getId() ?>" method="POST">
+        <p><textarea name="content" id="" cols="90" rows="10" placeholder="Nouveau message du sujet..."></textarea></p>
+        <p><input type="submit" value="créer"></p>
+    </form>
+    </article>
 <?php } ?>
