@@ -1,7 +1,26 @@
+<?php $closed = $result["data"]["topics"]->getClosed(); ?>
+<div class="newMess">
+    <strong class="newPostButton">nouveau message</strong>
+    <?php if($closed == 0){ ?>
+        <article>
+            <table>
+                <tr>
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        <form class="newPost newPostButton hide" action="index.php?ctrl=forum&action=creaPost&id=<?= $result["data"]["topics"]->getId() ?>" method="POST">
+            <p><textarea name="content" id="" cols="90" rows="10" placeholder="Nouveau message du sujet..."></textarea></p>
+            <p><input type="submit" value="créer"></p>
+        </form>
+        </article>
+    <?php } ?>
+</div>
 <h1>Titre : <?= $result["data"]["topics"]->getTitle(); 
 $id_topic = $result["data"]["topics"]->getId();
 $user_id = $result["data"]["topics"]->getUser()->getId();
-$closed = $result["data"]["topics"]->getClosed();
+
 if($closed == 1){?> - (cloturé) <?php } ?>
 </h1>
 <?php if($closed == 0){ ?>
@@ -150,18 +169,3 @@ foreach ($result["data"]["posts"] as  $post) {
     <?php }
 ?>
 </table>
-<?php if($closed == 0){ ?>
-    <article>
-        <table>
-            <tr>
-                <td>
-                    <strong class="newPostButton">nouveau message</strong>
-                </td>
-            </tr>
-        </table>
-    <form class="newPost hide" action="index.php?ctrl=forum&action=creaPost&id=<?= $result["data"]["topics"]->getId() ?>" method="POST">
-        <p><textarea name="content" id="" cols="90" rows="10" placeholder="Nouveau message du sujet..."></textarea></p>
-        <p><input type="submit" value="créer"></p>
-    </form>
-    </article>
-<?php } ?>

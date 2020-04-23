@@ -64,7 +64,7 @@
 
                 }
             }
-            $this->redirectTo("home","profile");
+            $this->redirectTo("home","index");
         }
         public function upload($avatar){
             $up = Upload::uploadFile("avatar",$_FILES["avatar"]["name"],"public/img/");
@@ -87,7 +87,7 @@
 
         }
             
-            $this->redirectTo("home","profile");
+        $this->redirectTo("home","index");
         }
        
         /*public function ajax(){

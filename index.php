@@ -47,7 +47,7 @@
     $result = $ctrl->$action($id);
     
     /*--------CHARGEMENT PAGE--------*/
-    
+    // var_dump($_GET["action"]);die;
     if($action == "ajax"){//si l'action était ajax
         echo $result;//on affiche directement le return du contrôleur (càd la réponse HTTP sera uniquement celle-ci)
     }

@@ -5,6 +5,9 @@
         $title = $topic->getTitle();
         $author = $topic->getUser()->getUsername();
         $date = $topic->getCreationdate();
+        $date=date_create($date);
+        $jour = date_format($date,"d/m/Y");
+        $heure = date_format($date,"H:i:s");
         $avatar = $topic->getUser()->getAvatar();
         $closed = $topic->getClosed();
         if($closed == 0){
@@ -47,16 +50,21 @@
            <?php } ?>
             <div class="title_avatar">
                 <img src="<?= $avatar ?>" alt="">
+            </div>
             <div style="text-align:center">
                 <?= $author ?>
-            </div>
             </div>
             <div style="flex:1;text-align:center">
                 <?= $title ?>
             </div>
             </a>
             <div style="flex:0">
-            <?= $date ?>
+            <div>
+                <?= $jour ?>
+            </div>
+            <div>
+                <?= $heure ?>
+            </div>
             </div>
         </div>
    <?php }

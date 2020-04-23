@@ -12,12 +12,11 @@ $(".outils").on("click",function(e){
 })
 $(".newPostButton").on("click",function(e){
     e.stopPropagation()
-    $(".newPost").toggleClass("hide")
-    $(this).toggleClass("hide")
+    $(".newPost").slideDown(500)
 })
 
 $(".newCommentButton").on("click",function(e){
-    console.log($(this))
+    
     id = $(this).attr('name')
     e.stopPropagation()
     $("."+id).toggleClass("hide")
@@ -30,7 +29,7 @@ $(".picker").on("click",function(e){
     $(this).toggleClass("hide")
 })
 $(".css").on("click",function(e){
-    console.log($(this))
+    
     e.stopPropagation()
     $(this).toggleClass("hide")
     $(".picker").toggleClass("hide")
@@ -43,6 +42,45 @@ $(".message").each(function(){
             $(this).delay(3000).slideUp(500)
         })
     }
+})
+$(".openProfile").on("click",function(e){
+    
+    e.stopPropagation()
+    // $(this).toggleClass("hide")
+    $(".profile").slideDown(500)
+})
+$(".closeUser").on("click",function(e){
+    
+    e.stopPropagation()
+    // $(this).toggleClass("hide")
+    $(".profile").slideUp(500)
+})
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader()
+  
+        reader.onload = function (e) {
+            $('.label-file').addClass('hide');
+            $('.photoBut').toggleClass('hide');
+            $('#blah').append('<img id="blah" src="'+e.target.result+'" alt="your image" />')
+        }
+  
+        reader.readAsDataURL(input.files[0])
+    }
+  }
+  $(".newPseudo").on("click", function(){
+
+    //   $.get(
+    //       "index.php?action=ajax",
+    //       {
+    //           nb : $("#nbajax").text()
+    //         },
+    //         function(result){
+    //             console.log(result)
+    //         $("#nbajax").html(result)
+    //     }
+    // )
+
 })
 var tab = ['#1abc9c',
 '#e8f8f5',
@@ -230,7 +268,6 @@ var tab = ['#1abc9c',
 '#424949']
 for (let i = 0; i < tab.length; i++) {
     const element = tab[i];
-    console.log(element)
     $(".css").append('<div id="color" style="background:'+tab[i]+'" class="'+tab[i]+'"></div>')
     
 }

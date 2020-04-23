@@ -62,7 +62,11 @@
                             $user = App\Session::getUser();
                             $avatar = $user->getAvatar();
                             $username = $user->getUsername() ?>
-                <p class="username"><span><?= $username ?></span></p>
+                <p class="username">
+                    <img class="avatar" src="<?=$user->getAvatar() ?>" alt="">
+                    <strong class="title_head">Forum CDA</strong>
+                    <span><?= $username ?></span>
+                </p>
             <?php } ?>
                 <nav>
                     <?php
@@ -80,7 +84,31 @@
                             ?>
                             
                             <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
-                            <a href="index.php?ctrl=home&action=profile"><i class="fas fa-3x fa-user-alt"></i></a>
+                            <div class="posUser">
+                                <i class="openProfile fas fa-3x fa-user-alt"></i>
+                                <div class="profile hide">
+                                <i class="closeUser far fa-window-close"></i>
+                                <div class="divModif">
+                                    <p><img class="avatar" src="<?= $_SESSION['user']->getAvatar()?>" alt="avater"></p>
+                                    <form action="index.php?ctrl=home&action=modifAvatar&id=<?= $_SESSION["user"]->getId() ?>" method="post" enctype='multipart/form-data'>
+                                        <label for="photo" class="label-file"><i class="far fa-2x fa-image"></i></label>
+                                        <a id="blah"></a>
+                                        
+                                        <p><input id="photo" class="input-file" type="file" name="avatar" onchange="readURL(this);"></p>
+                                        <p><input type="submit" class="hide photoBut" value="changer d'avatar"></p>
+                                    </form>
+                                </div>
+                                <div class="divModif">
+                                    <p><?= $_SESSION['user']->getUsername()?></p>
+                                    <form action="index.php?ctrl=home&action=modifUserName&id=<?= $_SESSION["user"]->getId() ?>" method="post" enctype='multipart/form-data'>
+                                        <p><input type="text" name="username"></p>
+                                        <p><input class="newPseudo" type="submit" value="changer de pseudo"></p>
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            
                             <?php
                         }
                         else{
